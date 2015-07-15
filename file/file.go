@@ -5,7 +5,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"github.com/mattes/migrate/migrate/direction"
+	"github.com/betterworldtoday/migrate/migrate/direction"
 	"go/token"
 	"io/ioutil"
 	"path"
@@ -296,8 +296,8 @@ func LineColumnFromOffset(data []byte, offset int) (line, column int) {
 // LinesBeforeAndAfter reads n lines before and after a given line.
 // Set lineNumbers to true, to prepend line numbers.
 func LinesBeforeAndAfter(data []byte, line, before, after int, lineNumbers bool) []byte {
-	// TODO(mattes): Trim empty lines at the beginning and at the end
-	// TODO(mattes): Trim offset whitespace at the beginning of each line, so that indentation is preserved
+	// TODO(betterworldtoday): Trim empty lines at the beginning and at the end
+	// TODO(betterworldtoday): Trim offset whitespace at the beginning of each line, so that indentation is preserved
 	startLine := line - before
 	endLine := line + after
 	lines := bytes.SplitN(data, []byte("\n"), endLine+1)
