@@ -7,12 +7,14 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"github.com/betterworldtoday/migrate/file"
-	"github.com/betterworldtoday/migrate/migrate/direction"
-	"github.com/go-sql-driver/mysql"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/betterworldtoday/migrate/driver"
+	"github.com/betterworldtoday/migrate/file"
+	"github.com/betterworldtoday/migrate/migrate/direction"
+	"github.com/go-sql-driver/mysql"
 )
 
 type Driver struct {
@@ -176,4 +178,8 @@ func (driver *Driver) Version() (uint64, error) {
 	default:
 		return version, nil
 	}
+}
+
+func init() {
+	driver.RegisterDriver("mysql", &Driver{})
 }

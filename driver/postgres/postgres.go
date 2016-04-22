@@ -5,10 +5,12 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"strconv"
+
+	"github.com/lib/pq"
+	"github.com/betterworldtoday/migrate/driver"
 	"github.com/betterworldtoday/migrate/file"
 	"github.com/betterworldtoday/migrate/migrate/direction"
-	"github.com/lib/pq"
-	"strconv"
 )
 
 type Driver struct {
@@ -118,4 +120,8 @@ func (driver *Driver) Version() (uint64, error) {
 	default:
 		return version, nil
 	}
+}
+
+func init() {
+	driver.RegisterDriver("postgres", &Driver{})
 }

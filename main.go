@@ -6,14 +6,19 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
+	"strconv"
+	"time"
+
+	"github.com/fatih/color"
+	_ "github.com/betterworldtoday/migrate/driver/bash"
+	_ "github.com/betterworldtoday/migrate/driver/cassandra"
+	_ "github.com/betterworldtoday/migrate/driver/mysql"
+	_ "github.com/betterworldtoday/migrate/driver/postgres"
 	"github.com/betterworldtoday/migrate/file"
 	"github.com/betterworldtoday/migrate/migrate"
 	"github.com/betterworldtoday/migrate/migrate/direction"
 	pipep "github.com/betterworldtoday/migrate/pipe"
-	"github.com/fatih/color"
-	"os"
-	"strconv"
-	"time"
 )
 
 var url = flag.String("url", os.Getenv("MIGRATE_URL"), "")
@@ -21,9 +26,12 @@ var migrationsPath = flag.String("path", "", "")
 var version = flag.Bool("version", false, "Show migrate version")
 
 func main() {
+	flag.Usage = func() {
+		helpCmd()
+	}
+
 	flag.Parse()
 	command := flag.Arg(0)
-
 	if *version {
 		fmt.Println(Version)
 		os.Exit(0)
